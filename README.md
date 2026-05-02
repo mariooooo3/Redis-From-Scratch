@@ -12,6 +12,7 @@ A Redis-like in-memory key-value store built from scratch in C++, chapter by cha
 | 02 | Socket programming theory — TCP/IP layers, socket primitives | — |
 | [03](03/) | TCP server & client — first working connection | [03/](03/) |
 | [04](04/) | Request-response protocol — length-prefixed binary framing | [04/](04/) |
+| 05 | Concurrent IO models — event loop, non-blocking IO, poll() | — |
 
 ## Concepts covered so far
 
@@ -22,6 +23,9 @@ A Redis-like in-memory key-value store built from scratch in C++, chapter by cha
 - Length-prefixed framing: `[4-byte len][body]` — the foundation of binary protocols
 - `read_full()` / `write_all()` — correct loops for partial reads and writes
 - Multiple requests over a single connection
+- Event loop — a single thread waits on all sockets with `poll()`, then reads/writes only the ones that are ready
+- `O_NONBLOCK` + `EAGAIN` — non-blocking reads/writes return immediately instead of suspending the thread
+- `poll()` / `epoll` — readiness APIs; `epoll` is preferred in production for scalability; disk files are not supported
 
 ## Build & run
 
